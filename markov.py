@@ -2,8 +2,6 @@
 
 from random import choice
 
-#Within the skeleton provided, finish the function that opens the 
-#file_path for our green-eggs.txt file and spits out its contents as a string.
 def open_and_read_file(file_path):
     """Take file path as string; return text as string.
 
@@ -12,14 +10,8 @@ def open_and_read_file(file_path):
 
     LINK: https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files
     """
-
-    # open file
     the_file = open(file_path)
-
-    # read file
     file_string = the_file.read()
-    
-    # close file
     the_file.close()
     return file_string
 
@@ -50,14 +42,31 @@ def make_chains(text_string):
     """
 
     chains = {}
-
-    # your code goes here
-
+    words_list = text_string.split()    # words_list is a list of strings (words) from input text_string
+    for i in range(0, len(words_list), 2):      # use range(start, stop, step)
+        j = i + 1
+        if j < len(words_list):
+            key = (words_list[i], words_list[j])
+            # word_pair = words_list[i] + ' ' + words_list[j]
+        else:
+            key = (words_list[i], )
+            # word_pair = words_list[i] + ' ' + '_'
+        
+        if j + 1 < len(words_list):
+            chain_word = words_list[j + 1]
+            # print(f'chain_word = {chain_word}')
+            chains[key] = chains.get(key, list())
+            # print(f'chains[key] for key = {key} is {chains[key]}')
+            chains[key].append(chain_word)      # why can't I combine this with line 61?
     return chains
 
 
 def make_text(chains):
-    """Return text from chains."""
+    """Return text from chains.
+    
+    INPUT: 
+    OUTPUT: 
+    """
 
     words = []
 
@@ -66,6 +75,13 @@ def make_text(chains):
     return ' '.join(words)
 
 
+def test():
+    string = 'Would you could you in a house?'
+    mydict = make_chains(string)
+    print(mydict)
+
+
+"""
 input_path = 'green-eggs.txt'
 
 # Open the file and turn it into one long string
@@ -78,3 +94,4 @@ chains = make_chains(input_text)
 random_text = make_text(chains)
 
 print(random_text)
+"""
